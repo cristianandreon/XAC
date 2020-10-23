@@ -1,0 +1,2292 @@
+<!------------------------------------------->
+<!--  xProject XP1.30 UI Application V1.01 -->
+<!------------------------------------------->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html slick-uniqueid="3" xmlns="http://www.w3.org/1999/xhtml" >   
+    
+<head>
+<meta charset="utf-8">
+<meta name="description" content="xProject UI Intercace">
+<meta name="keywords" content="xProhect UI Interface">
+<meta name="author" content="Cristian Andreon">
+<meta name="copyright" content="2017 Cristian Andreon - www.cristianandreon.eu">
+
+<style type="text/css">
+
+	html {overflow-y:hidden;height:100%;font-family:Calibri,Sans-serif; }
+	body {overflow-y:auto;height:100%; margin:0; padding:0;}
+	#backgroundDiv { position:absolute; top:0; left:0; width:100%; height:100%; z-index:-2;}
+	#frontgroundDiv { position:absolute; top:0; left:0; width:100%; height:100%; z-index:1; pointer-events:none; }
+	#content {position:static;z-index:-1;}
+	a {color:#4E90D1; text-decoration:none; font-weight: bold; }
+	a:hover {color:#4EBFDD; text-decoration:none; font-weight: bold; }
+	input { padding-left:3px; padding-top:3px; padding-bottom:3px; font-size:19px; font-weight: 600; }
+	
+	.cuVarStatIOsm { width:8px; height:8px; border:1px solid lightgray; display:inline-block; margin-left:2px; margin-right:2px; 
+					-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; -khtml-border-radius: 3px;
+					}
+	.cuVarStatIO { width:16px; height:16px; border:1px solid lightgray; display:inline-block; margin-left:2px; margin-right:2px; 
+					-moz-border-radius: 3px; -webkit-border-radius: 3px; border-radius: 3px; -khtml-border-radius: 3px;
+					}
+	.cuVarStat { width:30px; height:20px; border:1px solid lightgray; display:inline-block; margin-left:2px; margin-right:2px; 
+					-moz-border-radius: 5px; -webkit-border-radius: 5px; border-radius: 5px; -khtml-border-radius: 5px;
+					}
+	.cuVar { margin-left:2px; display: flex; width:99%; }
+	.cuVar input { padding:3px; font-size:17px; }
+	input:read-only, .cuVar input:read-only, cuVar input[readonly], .cuVar input[readonly='readonly'], .cuVar input[read-only] { background-color:lightGray; color:#465b65; border:1px solid darkGray; }
+
+    .cuVarBt input { padding-right: 8px; padding-left: 8px; }
+
+
+	.actionIcon { cursor: pointer; }
+	.searchText { background-image: url(search.png); background-position: 1px 1px; background-repeat: no-repeat; padding-left: 33px; height:35px; }
+	
+    .legendVar { font-size: 75%; font-style:italic; }
+        	
+	.cuHTTP { margin-left:2px; margin-right:2px; }
+	
+	.cuVarIstogramContainer { width:100px; height:7px; background-color:lightGray; border:1px solid black; }
+	.cuVarIstogram { width:50px; height:6px; background-color:#03a9f4; border:1px solid black; }
+	.cuVarTrace { width:100px; haight:100px; background-color:lightGray; border:1px solid black; }
+	.cuVarTraceChart { border:1px dashed lightGray; }
+	
+	.varRow { height:42px; display: table-cell; vertical-align:middle; }
+	.varRowSM { font-size: 15px; height:20px; vertical-align:middle; }
+	.varRowBK { background-color:lightGray; padding-left:10px; font-size:21px; }
+	.varRowBKVersion { background-color:lightGray; padding-left:10px; font-size:13px; font-style: italic; }
+	
+	.cuVarTable { display: -webkit-inline-box; }	
+	.cuVarTableSM { display: -webkit-inline-box; }
+	.rowSpacer { height:1px; border-bottom:1px solid lightGray; }
+
+	.varLabel { font-size:14px; }
+	.spacer  { height:1px; font-size:0px; background-color:transparent; border-bottom:1px solid lightGray;  }
+
+	.timerTable tr { vertical-align:bottom; }
+
+	.archiveTableClass { padding: 5px; border: 1px solid lightgray; }
+	.archiveTableClass tr:nth-child(even) { background-color: rgba(94, 115, 140, 0.11);	}
+	.archiveTableClass tbody { display:block; height:600px; overflow-y: scroll; border-bottom: 1px solid #03a9f4; border-top: 1px solid #03a9f4; }
+	.archiveTableClass thead, .archiveTableClass tfoot, .archiveTableClass tbody tr { display:table; width:100%; table-layout:fixed; }
+	.archiveTableClass thead, .archiveTableClass tfoot { width: calc( 100% - 1em ) }
+	.archiveTableClass table { display:table; height: 500px; width:400px; }
+
+	.alarmTableClass { padding: 5px; border: 1px solid lightgray; }
+	.alarmTableClass tr:nth-child(even) { background-color: rgba(94, 115, 140, 0.11);	}
+	.alarmTableClass tbody { display:block; height:600px; overflow-y: scroll; border-bottom: 1px solid darkred; border-top: 1px solid darkred; }
+	.alarmTableClass thead, .alarmTableClass tfoot, .alarmTableClass tbody tr { display:table; width:100%; table-layout:fixed; }
+	.alarmTableClass thead, .alarmTableClass tfoot { width: calc( 100% - 1em ) }
+	.alarmTableClass table { display:table; height: 500px; width:400px; }
+
+	.historicalAlarmTableClass { padding: 5px; border: 1px solid lightgray; }
+	.historicalAlarmTableClass tr:nth-child(even) { background-color: rgba(94, 115, 140, 0.11);	}
+	.historicalAlarmTableClass tbody { display:block; height:600px; overflow-y: scroll; border-bottom: 1px solid #FF9800; border-top: 1px solid #FF9800; }
+	.historicalAlarmTableClass thead, .historicalAlarmTableClass tfoot, .historicalAlarmTableClass tbody tr { display:table; width:100%; table-layout:fixed; }
+	.historicalAlarmTableClass thead, .historicalAlarmTableClass tfoot { width: calc( 100% - 1em ) }
+	.historicalAlarmTableClass table { display:table; height: 500px; width:400px; }
+			
+
+	.firstCell { border:0px solid Gray; padding: 5px; height: 35px; }
+	.internalCell { border-left:1px solid Gray; padding: 5px; }
+	.lastCell { border-left:1px solid Gray; padding: 5px; }
+
+	.paramSetButton { padding-left: 45px; padding-right: 45px; }
+	.bigButton { width: 300px; height: 60px; }
+
+
+
+
+	
+	/*----------tap panel style------*/
+	.softkey-panel { width: 148px; display: inline-block; margin-top:40px; }
+    .softkey li { width: 148px; margin: 2px -38px 15px; border-radius: 3px 10px 0px 0px; list-style: none; height:60px; border:1px solid darkGray; }
+    .softkey a { padding: 10px 15px; display: inline-block; background: transparent; font-weight: bold; color: #4c4c4c; border:1px lightGray; width:80%; height:80%; }
+    .off { background-color:lightGray; box-shadow: darkGrey 3px 2px 4px 2px; }
+	.on { background-color:transparent; box-shadow: lightGrey 6px 4px 9px 4px; }
+
+ 	.tab-panel { display: inline-block; height: 42px; overflow:hidden; }
+	.tab-panel-bottom { position:relative; bottom:1px; border-top: 1px solid lightgray;  }
+	
+	.tab-link, .tab-link-vert, .tab-panel-bottom { display: block; padding-top: 0px; margin-top: 1px;  }
+
+    .tab-link li, .tab-link-vert li, .tab-panel-bottom li { margin: 0px 1px 0px; list-style: none; display: inline-grid; }
+    .tab-link a, .tab-link-bottom a { font-size:16px; padding: 10px 15px 10px 15px; display: inline-block; background: #d2dfe8; border-radius: 5px 10px 0px 0px; font-weight: bold; color: #4c4c4c; border:1px lightGray; height:95%; }
+    
+    .tab-link-vert a { padding: 10px 15px 10px 15px; display: inline-block; background: #d2dfe8; border-radius: 0px 0px 3px 10px; font-weight: bold; color: #4c4c4c; border:1px lightGray; }
+    .tab-panel-bottom a { padding: 10px 15px 10px 15px; display: inline-block; background: #d2dfe8; border-radius: 0px 0px 3px 10px; font-weight: bold; color: #4c4c4c; border:1px lightGray; }
+	
+	.tab-link a:hover, .tab-link-vert a:hover, .tab-link-bottom a:hover { background: #b7c7e5; text-decoration: none; }
+	
+	.tab-link li.active a, .tab-link li.active a:hover { background: #ccc; color: #0094ff; text-decoration:none; box-shadow: #c1cbd4 -2px -2px 6px 2px; }
+	.tab-link { position: relative; left: -40px; width: 100%; font-size:16px; }
+    	
+	.tab-link-bottom li.active a, .tab-link li.active a:hover { font-size:16px; background: #ccc; color: #0094ff; text-decoration:none; box-shadow: #c1cbd4 -2px -2px 6px 2px; }	
+	.tab-link-vert li.active a, .tab-link-vert li.active a:hover { background: #ccc; color: #0094ff; text-decoration:none; box-shadow: #c1cbd4 2px 2px 6px 2px; }
+    .content-area { width: --1050px; height:100%; border-radius: 3px; background-color:transparent; border: 1px solid #cccccc; margin-top: 0px; overflow:hidden; display:block; }
+    .inactive { display: none; }
+	.active { display: block; background-color:transparent; }
+
+
+	#tab2Content,#tab3Content,#tab4Content,#tab5Content,#tab6Content,#tab7Content,#tab8Content,#tab9Content  { height:99%; }
+	#tab81Content,#tab82Content,#tab83Content,#tab84Content,#tab85Content,#tab86Content { height:760px; }	
+	#tab91Content,#tab92Content,#tab93Content,#tab94Content { height:760px; }
+
+	
+
+
+	/*---------- onscreen keyboard ------*/
+	.keyboardClass { border:1px solid gray; padding:1px; border-radius: 9px 9px 9px 9px;  font-size:17px; }
+
+	
+	
+	
+	</style>
+
+
+    <!-- Compressore -->
+    <script type="text/javascript" language="javascript" src="Iuppiter.js"></script>
+
+    <!-- Linguaggi -->
+    <script type="text/javascript" language="javascript" src="languages.js"></script>
+
+    <!-- Gestione Autenticazione -->
+    <script type="text/javascript" language="javascript" src="login.js"></script>
+
+    <!-- Gestione impostazioni -->
+    <script type="text/javascript" language="javascript" src="settings.js"></script>
+
+    <!-- Accesso al database system -->
+    <script type="text/javascript" language="javascript" src="websql_dump.js"></script>
+
+
+
+	<!-- Funzioni generali-->
+    <script type="text/javascript" language="javascript" src="functions.js"></script>
+
+   
+
+    <!-- Gestione stream -->
+    <script type="text/javascript" language="javascript" src="stream.js"></script>
+
+    <!-- Gestione ricette -->
+    <script type="text/javascript" language="javascript" src="work_set.js"></script>
+
+    <!-- Accesso al file system -->
+    <script type="text/javascript" language="javascript" src="file_system.js"></script>
+
+    <!-- Persistenza allarmi -->
+    <script type="text/javascript" language="javascript" src="alarms.js"></script>
+    
+    <!-- Servizi (HTTP) -->
+    <script type="text/javascript" language="javascript" src="services.js"></script>
+
+    <!-- Collegamenti remoti -->
+    <script type="text/javascript" language="javascript" src="remote.js"></script>
+
+    
+   
+    <!-- Funzioni locali -->
+    <script type="text/javascript" language="javascript">
+    
+    	tabWorkspaces = Array ();
+    	
+    	tabWorkspaces.push( { name : "top", lastTab:null } );
+    	tabWorkspaces.push( { name : "service", lastTab:null } );
+    	tabWorkspaces.push( { name : "settings", lastTab:null } );
+
+		function set_tab(tabWorkspace, newTab) {
+			if (newTab != tabWorkspace.lastTab) {
+				newTab.parentElement.className = 'active';
+				document.getElementById(newTab.id+"Content").className = 'active'; 
+				if(tabWorkspace.lastTab) {
+					tabWorkspace.lastTab.parentElement.className = '';
+					document.getElementById(tabWorkspace.lastTab.id+"Content").className = 'inactive';
+					// Rilegge gli oggetti della UI
+					reload_content();
+				}
+				tabWorkspace.lastTab = newTab;
+				// Memorizza l'ultimo tab
+				if (tabWorkspace.name=='top') {
+					if(GLSettings) {
+						if (GLSettings.last_page != newTab.id) {
+							GLSettings.last_page = newTab.id;
+							GLSettings.dirty = true;
+						}
+					}
+				}							
+			}
+		}
+				
+	</script>
+
+
+
+
+    <title>xProject</title>
+    
+</head>
+
+
+<body onload="init_ui()">
+
+
+
+	
+	<!-- onscreen Keyboard -->
+	<div style="display:none; position: absolute;">
+		<canvas class="keyboardClass" id="keyboard_canvas"></canvas>
+	    <!-- on screen keyboard -->
+	    <script type="text/javascript" language="javascript" src="keyboard.js"></script>
+		</div>
+	
+	
+	
+	
+	<div id="backgroundDiv" style="width:100%; height:100%; "><img alt="" src="Logo.jpg" style="width:100%; height:100%; -webkit-filter:opacity=0.10;opacity:0.10; -ms-filter: 'progid:DXImageTransform.Microsoft.Alpha(Opacity=10)'; filter: alpha(opacity=10); -khtml-opacity: 0.10;" /></div>
+	<div id="frontgroundDiv" style="width:100%; height:100%; backgroundColor:rgba(0, 0, 0, 0.33);"></div>
+	<!--
+	-->
+
+		<div align=center style="width:100%; height: 100%;" >
+	
+			<table align=center sellspacing=0 cellpadding=0 style="border-spacing:0px; height: 100%; width: 95%;" >
+				<tr style="height: 30px;">
+					<td style="text-align: left;">
+						<div class="tab-panel">
+						    <ul class="tab-link">
+						        <li><a id="tab1" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Home</a></li>
+						        <li><a id="tab4" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Heating</a></li>
+						        <li><a id="tab2" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Blow Moulding</a></li>
+						        <li><a id="tab3" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Timers</a></li>
+						        <li><a id="tab5" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Archive</a></li>
+						        <li><a id="tab6" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Alarms</a></li>
+						        <li><a id="tab7" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Manual Command</a></li>
+						        <li><a id="tab8" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Settings</a></li>
+						        <li><a id="tab9" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Service</a></li>
+						        <li><a id="tab10" onclick="set_tab(tabWorkspaces[0], this);" href="javascript:void(0)">Debug</a></li>
+						    </ul>
+				    	</div>
+				    </td>
+					<td style="text-align: center; width:90px; ">
+				    </td>
+				</tr>
+				<tr>
+					<td>
+				   		<div class="content-area">
+				   		
+			
+			
+							<!-------------->
+							<!-- Home     -->
+							<!-------------->
+				       		<div id="tab1Content" class="inactive">
+				       			<center>
+									<table align="center" style="position: relative; top: 130px;">
+										<tr><td style="height:30%"></td></tr>
+										<tr><td>
+											<table cellspacing="0" cellpadding="15" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px;">
+												<tr>
+													<td colspan=2 class="varRowBK" style="border-bottom: 1px solid white;">xProject - <b>XP1.30</b><div style="float:right;"><img class="actionIcon" id="users" src="users.png" style="width:32px; height:32px; "  onClick="javascript:users_manager(this);" /></div></td>
+												</tr>
+												<tr style="border-bottom: 1px solid white;">
+													<td colspan=2 class="varRowBKVersion" style="padding-left:10px; border-bottom: 1px solid white;"">Cypress edition</td>
+												</tr>
+												<tr class="varRowBK">
+													<td colspan="1"><span style="font-size:60%"><div id="uiCUAddr" class="uiLabel">Control Unit address</div></span></td>
+													<td colspan="1" style="text-align:right;"><span style="font-size:50%">192.168.1.</span><b><input class="uiVar" id="addr" data-rel="settings" list="addrList" autocomplete="on" type="search" onchange="set_cu_addr(this.value);" value="200" style="width:85px; margin-left: 5px;" />
+														<datalist id="addrList">
+															<option id="101" value="101"></option>
+															<option>102</option>
+															<option>103</option>
+															<option>104</option>
+															<option>105</option>
+															<option>106</option>
+															<option>107</option>
+															<option>108</option>
+															<option>109</option>
+															<option>110</option>
+															<option>111</option>
+														  	<option>112</option>
+														  	<option>113</option>
+															<option id="200" value="200"></option>
+														</datalist>
+													</b></td></tr>
+
+
+												<tr><td colspan=2 class="rowSpacer"></td></tr>
+												<tr>
+													<td style="width: 175px;"class=""><div id="uiUser" class="uiLabel">User Name</div></td>
+													<td style="width: 75px;"><b><input class="uiVar" list="userList" id="UserName" type="search" value="" placeHolder="user name" autocomplete="on" autofocus /></b>
+														<datalist id="userList">
+															<option id="1" value="Guest"></option>
+														</datalist>
+													</td>
+												</tr>
+												<tr>
+													<td class=""><div id="uiPass" class="uiLabel">Password</div></td>
+													<td><b><input class="uiVar" id="Password" type="password" value="" placeHolder="password" /></b></td>
+												</tr>
+												<tr>
+													<td class=""><div id="uiLogAuto" class="uiLabel">Automatic login</div></td>
+													<td><b><input class="uiVar" id="Autologin" type="checkbox" value="" /></b></td>
+												</tr>
+												<tr><td colspan=2 class="rowSpacer"></td></tr>
+												
+												<tr>
+													<td colspan=2 >
+														<center><input class="" id="loginBt" type="button" value="Login" data-lang="uiLogin" onclick="doLogin()"/><input class="" id="logoutBt" type="button" value="Logout" data-lang="uiLogout" onclick="doLogout()"/></center>
+														</td>
+												</tr>
+
+												<tr><td colspan=2 class="rowSpacer"></td></tr>
+												
+												<tr>
+												<td style="text-align:left; font-size: 23px; font-style: italic; font-variant: small-caps; font-weight: 400;"><div style="float:left" class="actionIcon"><img src="eng.png" style="padding:6px;" onclick="set_cur_lang('ENG')"/></div><div id="uiLangENG" class="uiLabel" style="padding-top: 7px; text-shadow: 1px 1px grey; cursor: pointer;" onclick="set_cur_lang('ENG')"></div></td>
+												<td style="text-align:right; font-size: 23px; font-style: italic; font-variant: small-caps; font-weight: 400;"><div style="float:right" class="actionIcon"><img src="ita.png" style="padding:6px;" onclick="set_cur_lang('ITA')"/></div><div id="uiLangITA" class="uiLabel" style="padding-top: 7px; text-shadow: 1px 1px grey; cursor: pointer;" onclick="set_cur_lang('ITA')"></div></td>										
+												</tr>										
+    												
+											</table>
+										</td></tr>
+										
+										<tr><td></td></tr>
+										
+										<tr><td style="height:50px;" colspan="2"></td></tr>
+									</table>
+								</center>
+					       	</div>
+			
+			
+			
+			
+			
+					
+							<!------------->
+							<!-- Heating -->
+							<!------------->
+					       	<div id="tab4Content" class="inactive">
+								<table align="center" cellspacing="0" cellpadding="0" border="0">
+									<tr>
+										<td style="vertical-align:top;" colspan="2">							
+											</td>
+										</tr>
+									<tr>
+										<td style="vertical-align:top; padding-left: 5px; padding-right: 5px;">							
+											<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px;">
+												<tr>
+													<td class="varRowBK" colspan="6"><div>Owen 1</div></td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Initial Global Heating</td>
+													<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style="width:100px; "><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:orange; "></div></div></td>
+													<td class="cuVarTable"></td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Global Heating</td>
+													<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style="width:100px; "><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:red; "></div></div></td>
+													<td class="cuVarTable"></td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Stanby Heating</td>
+													<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style="width:100px; "><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTable"></td>
+													</tr>
+												<tr>
+													<td class="varRowBK" colspan="6"><div>Profile settings </div></td>
+													</tr>
+				
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 1</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.1" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.1">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 2</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.2" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.2">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 3</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.3" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.3">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 4</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.4" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.4">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 5</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.5" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.5">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 6</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.6" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.6">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 7</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.7" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.7">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 8</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.8" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.8">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 9</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.9" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.9">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 10</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.10" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.10">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 11</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.11" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.11">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 12</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.1.12" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.1.12">0</div>W</td>
+													</tr>
+				
+												<tr>
+													</tr>
+													
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Max Working Temp.</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.owen1_max_temp" value="000"></b></td>
+													<td style="width:40px; ">&deg;</td>
+													<td style=""></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="act.temperatura_forni.rpos">0</div>&deg;</td>
+													</tr>
+				
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Min Working Temp.</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.owen1_min_temp" value="000"></b></td>
+													<td style="width:40px; ">&deg;</td>
+													<td style=""></td>
+													<td class="cuVarTableSM"></td>
+													</tr>
+												
+												</table>
+												
+											</td>
+											<td style="border-left:1px solid lightGray; padding-left: 5px; padding-right: 5px;">
+											<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px;">
+												<tr>
+													<td class="varRowBK" colspan="6"><div>Owen 2</div></td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Initial Global Heating</td>
+													<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:orange; "></div></div></td>
+													<td class="cuVarTable"></td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Global Heating</td>
+													<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:red; "></div></div></td>
+													<td class="cuVarTable"></td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Stanby Heating</td>
+													<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTable"></td>
+													</tr>
+												<tr>
+													<td class="varRowBK" colspan="6"><div>Profile settings </div></td>
+													</tr>
+				
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 1</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.1" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.1">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 2</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.2" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.2">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 3</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.3" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.3">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 4</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.4" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.4">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 5</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.5" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.5">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 6</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.6" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.6">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 7</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.7" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.7">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 8</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.8" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id=workSet.pRow.2.8>0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 9</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.9" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.9">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 10</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.10" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.10">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 11</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.11" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.11">0</div>W</td>
+													</tr>
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Row 12</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.rRow.2.12" value="000"></b></td>
+													<td style="width:40px; ">%</td>
+													<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:darkRed; "></div></div></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="workSet.pRow.2.12">0</div>W</td>
+													</tr>
+				
+												<tr>
+													</tr>
+													
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Max Working Temp.</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.owen2_max_temp" value="000"></b></td>
+													<td style="width:40px; ">&deg;</td>
+													<td style=""></td>
+													<td class="cuVarTableSM"><div class="cuVar" id="act.temperatura_forni.rpos">0</div>&deg;</td>
+													</tr>
+				
+												<tr>
+													<td class="varRowSM" style="width:200px; ">Min Working Temp.</td>
+													<td style="width:50px; "><b><input class="cuVar" id="workSet.owen2_min_temp" value="000"></b></td>
+													<td style="width:40px; ">&deg;</td>
+													<td style=""></td>
+													<td class="cuVarTableSM"></td>
+													</tr>
+				
+												</table>
+											</td>
+										
+										</tr>
+									<tr>
+											<td style="vertical-align:top;">
+												<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px;">
+													<tr>
+														<td class="varRow" style="width:200px; "><p>Ventilation</p></td>
+														<td style="width:50px; "><b><input class="cuVar" id="act.stiro.speed" value="000"></b></td>
+														<td style="width:40px; ">%</td>
+														<td style=""><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed-I" style="background-color:lightBlue; "></div></div></td>
+														<td class="cuVarTable"></td>
+														</tr>
+													</table>
+												</td>
+											</tr>
+								</table>
+					      	</div>
+			
+			
+					
+			
+			
+			
+			
+				
+							<!----------------------->
+							<!-- Blow Moulding     -->
+							<!----------------------->
+					       	<div id="tab2Content" class="inactive">
+					       	
+								<table align="center" cellspacing="0" cellpadding="0" border="0">
+								
+								<tr>
+									<td style="vertical-align:top;">	
+															
+										<table cellspacing="1" cellpadding="9" border="0" style="margin-top:10px; padding:10px; border-right:1px solid lightGray; margin-left:5px; border-radius--: 11px 11px 11px 11px;">
+											<tr>
+												<td class="varRowSM">Production</td>
+												<td style="width: 100px;"><b><input class="cuVar" id="workSet.production" type="number" value="250" /></b></td>
+												<td style="width: 40px;">b/h</td>
+												<td style="width: 125px;"><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="workSet.production-I" style="width:50px; height:6px; background-color:darkOrange; border:1px solid black;"></div></div></td>
+												<td style="width: 75px;"></td>
+											</tr>
+											<tr><td colspan=5 style="height:1px; border-bottom:1px solid gray;"></td></tr>
+											<tr>
+												<td class="varRow" style="width:200px; "><p>Global Heating</p></td>
+												<td ><b><input class="cuVar" id="workSet.global_heat_ratio1" type="number" value="50" /></b></td>
+												<td>%</td>
+												<td><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="workSet.global_heat_ratio1-I" style="width:50px; height:6px; background-color:red; border:1px solid black;"></div></div></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Preform Temperature</td>
+												<td><b><div class="cuVar" id="act.temperatura_preforma.pos">103.0</div></b></td>
+												<td>°C</td>
+												<td><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.temperatura_preforma.pos-I" style="width:50px; height:6px; background-color:darkRed; border:1px solid black;"></div></div></td>
+												<td></td>
+											</tr>
+											<tr><td colspan=5 style="height:1px; border-bottom:1px solid gray;"></td></tr>
+											<tr>
+												<td class="varRowSM">Stretch Rod Speed</td>
+												<td><b><input class="cuVar" id="act.stiro.speed_auto1" value="1200" type="number" ></b></td>
+												<td>rpm</td>
+												<td><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="act.stiro.speed_auto1-I" style="width:50px; height:6px; background-color:yellow; border:1px solid black;"></div></div></td>
+												<td>
+													<table class="legendVar">
+													<tr><td><div class="cuVar" id="act.stiro.min_speed"></div></td><td>rpm</td></tr>
+													<tr><td><div class="cuVar" id="act.stiro.speed">0</div></td><td>rpm</td></tr>
+													<tr><td><div class="cuVar" id="act.stiro.max_speed"></div></td><td>rpm</td></tr>
+													</table>
+												</td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Stretch rod force</td>
+												<td><b><input class="cuVar" id="act.stiro.force_auto1" type="number" value="100" /></b></td>
+												<td>%</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Stretch Rod Bottom gap</td>
+												<td><b><input class="cuVar" id="workSet.stretch_bottom_gap" type="number"  value="5" /></b></td>
+												<td>mm</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr><td colspan=5 style="height:1px; border-bottom:1px solid gray;"></td></tr>
+											<tr>
+												<td class="varRowSM">Primary air position</td>
+												<td><b><input class="cuVar" id="workSet.primary_air_gap" type="number" value="200" /></b></td>
+												<td>mm</td>
+												<td><div class="cuVarIstogramContainer" id="" style=""><div class="cuVarIstogram" id="workSet.primary_air_gap" style="width:50px; height:6px; background-color:lightBlue; border:1px solid black;"></div></div></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Secondary air delay</td>
+												<td><b><input class="cuVar" id="workSet.secondary_air_gap" type="number" value="0.100" /></b></td>
+												<td>s</td>
+												<td></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Discharge air time</td>
+												<td><b><input class="cuVar" id="workSet.discharge_air_time" type="number" value="2.5" /></b></td>
+												<td>sec</td>
+												<td></td>
+												<td></td>
+											</tr>
+			
+											<tr style="height:1px;"><td colspan=5 style="height:1px; border-top:1px solid gray;"></td></tr>
+											
+											<tr>
+												<td class="varRowSM">Preforms loaded</td>
+												<td><b><div class="cuVar" id="stat.preforms_loaded">0</div></b></td>
+												<td colspan=2>preforms</td>
+												<td></td>
+											</tr>
+			
+											<tr>
+												<td class="varRowSM">Bottles blowes</td>
+												<td><b><div class="cuVar" id="stat.bottles">0</div></b></td>
+												<td colspan=2>bottles</td>
+												<td></td>
+											</tr>
+			
+											<tr>
+												<td class="varRowSM">Pref/Bott discharged</td>
+												<td><b><div class="cuVar" id="stat.discharged" style="color:red">0</div></b></td>
+												<td colspan=2>pref/bott</td>
+												<td></td>
+											</tr>
+											
+										</table>
+										
+									</td><td style="vertical-align:top; ">
+										<table cellspacing="3" cellpadding="3" border="0" 
+										    style="font-family:monospace; font-name:calibri; font-size:13px; width:--00px; table-layout:fixed;
+										    				margin-left:5px;
+										    				margin-top:10px; 
+															border--:1px solid #CCCCCC; 
+															-moz-border-radius: 11px;
+															-webkit-border-radius: 11px;
+															--border-radius: 11px;
+															---khtml-border-radius: 11px;
+											                ---moz-box-shadow: 6px  6px 5px #dedede;  
+											                ---webkit-box-shadow:  6px  6px 5px #dedede; 
+											                --filter: progid:DXImageTransform.Microsoft.Shadow(color='#dedede', Direction=135, Strength=5); 
+											                --box-shadow: 6px 6px 5px #dedede;					
+															padding:5px;
+										    ">
+											<tr><td colspan="4" style="width:--00px; text-align:left; ">
+												<canvas class="cuVarTraceChart" id="act.stiro.TPos-TC" width="500" height="400" style=""></canvas>
+												</td></tr>
+											<tr><td colspan="4" style="width:--00px; text-align:left;  ">
+												<div style="display:none" id="act.stiro.TPos" class="cuVar" style=""></div>
+												<script src="Chart.js"></script>
+												</td></tr>
+												
+												
+											<tr>
+												<td class="varRow">Bottle air pressure</td>
+												<td style="width: 50px;"><b><div class="cuVar" id="act.pressBott.rPos">0</div></b></td>
+												<td>bar</td>
+												<td><div class="cuVarIstogramContainer" id="" style=""><div class="cuVar" style="height: 0px; font-size: 0px;" id="act.pressBott.Pos"></div><div class="cuVarIstogram" id="act.pressBott.Pos-I" style=""></div></div></td>
+												<td></td>
+											</tr>
+			
+											<tr>
+												<td class="varRow">Primary air pressure</td>
+												<td><b><div class="cuVar" id="act.ariaI.rPos">0</div></b></td>
+												<td>bar</td>
+												<td></td>
+												<td></td>
+											</tr>
+			
+											<tr>
+												<td class="varRow">Secondary air pressure</td>
+												<td><b><div class="cuVar" id="act.ariaII.rPos">0</div></b></td>
+												<td>bar</td>
+												<td></td>
+												<td></td>
+											</tr>
+												
+											<tr>
+												<td class="varRow">Discharge air time</td>
+												<td><b><div class="cuVar" id="workSet.discharge_air_time">0</div></b></td>
+												<td>sec</td>
+												<td></td>
+												<td></td>
+											</tr>
+			
+											</table>
+										</td>
+									</tr>
+								</table>
+					       </div>
+					
+			
+			
+			
+			
+			
+							<!------------>
+							<!-- Timers -->
+							<!------------>
+					       	<div id="tab3Content" class="inactive">
+								<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+								<tr>
+									<td style="vertical-align:top;">							
+										<table class="timerTable" cellspacing="3" cellpadding="6" border="0" style="margin-top:10px; padding:10px; width:60%; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; vertical-align: bottom; ">
+											<tr>
+												<td class="varRowBK" colspan="7"><div>Blow Mpulding Axis Timers (sec)</div></td>
+											</tr><tr>								    
+												<td class="varRowSM"><p>Clamping unit Open</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.stampo.TIME1" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.stampo.TIME11" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.stampo.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.stampo.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Follow error<b><input class="cuVar" id="act.stampo.FERR1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Error<b><input class="cuVar" id="act.stampo.ERR" style="width:55px;" type="number" value="0" readonly /></b></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Clamping unit Close</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.stampo.TIME2" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.stampo.TIME21" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.stampo.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.stampo.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Follow error<b><input class="cuVar" id="act.stampo.FERR2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel"></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Stretch Rod Down</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.stiro.TIME2" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.stiro.TIME21" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.stiro.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.stiro.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Follow error<b><input class="cuVar" id="act.stiro.FERR2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Error<b><input class="cuVar" id="act.stiro.ERR" style="width:55px;" type="number" value="0" readonly /></b></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Stretch Rod Up</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.stiro.TIME1" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.stiro.TIME11" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.stiro.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.stiro.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Follow error<b><input class="cuVar" id="act.stiro.FERR1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel"></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Mold Transf.X forward</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.trasfX.TIME1" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.trasfX.TIME11" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.trasfX.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.trasfX.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Follow error<b><input class="cuVar" id="act.trasfX.FERR1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Error<b><input class="cuVar" id="act.trasfX.ERR" style="width:55px;" type="number" value="0" readonly /></b></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Mold Transf.X backward</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.trasfX.TIME2" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.trasfX.TIME21" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.trasfX.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.trasfX.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Follow error<b><input class="cuVar" id="act.trasfX.FERR2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel"></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Mould Transf.Y Outside</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.trasfY.TIME1" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.trasfY.TIME11" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.trasfY.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.trasfY.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel"></td>
+												<td class="varLabel"></td>
+											</tr><tr>
+												<td class="varRowSM"><p>Mould Transf.Y Inside</p></td>
+												<td class="varLabel">Time<b><input class="cuVar" id="act.trasfY.TIME2" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Init<b><input class="cuVar" id="act.trasfY.TIME21" style="width:55px;" type="number" value="0" readonly /></b></td>
+												<td class="varLabel">Timeout<b><input class="cuVar" id="act.trasfY.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Warning<b><input class="cuVar" id="act.trasfY.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel"></td>
+												<td class="varLabel"></td>
+											</tr>								
+																			
+										</table>
+			
+										
+									</td><td style="vertical-align:top;">
+									
+										<table class="timerTable" cellspacing="3" cellpadding="6" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; vertical-align: bottom; ">
+											<tr>
+												<td class="varRowBK" colspan="5"><div>Heating Chain Timers (sec)</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Chain Transf.X</p></td>
+												<td class="varLabel">Forward timeout<b><input class="cuVar" id="act.manipX.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Forward warning<b><input class="cuVar" id="act.manipX.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Backword timeout<b><input class="cuVar" id="act.manipX.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Backword warning<b><input class="cuVar" id="act.manipX.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Chain Transf.Z</p></td>
+												<td class="varLabel">Down timeout<b><input class="cuVar" id="act.manipZ.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Down warning<b><input class="cuVar" id="act.manipZ.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Up timeout<b><input class="cuVar" id="act.manipZ.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Up warning<b><input class="cuVar" id="act.manipZ.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Chain Transf.Picker</p></td>
+												<td class="varLabel">Open timeout<b><input class="cuVar" id="act.manipP.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Open warning<b><input class="cuVar" id="act.manipP.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td class="varLabel">Close timeout<b><input class="cuVar" id="act.manipP.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Close warning<b><input class="cuVar" id="act.manipP.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Chain Stepper I°</p></td>
+												<td  class="varLabel">Outside timeout<b><input class="cuVar" id="act.catena_risc_step1.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Outside warning<b><input class="cuVar" id="act.catena_risc_step1.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Inside timeout<b><input class="cuVar" id="act.catena_risc_step1.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Inside warning<b><input class="cuVar" id="act.catena_risc_step1.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Chain Stepper II°</p></td>
+												<td  class="varLabel">Outside timeout<b><input class="cuVar" id="act.catena_risc_step2.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Outside warning<b><input class="cuVar" id="act.catena_risc_step2.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Inside timeout<b><input class="cuVar" id="act.catena_risc_step2.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Inside warning<b><input class="cuVar" id="act.catena_risc_step2.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Chain Stepper III°</p></td>
+												<td  class="varLabel">Outside timeout<b><input class="cuVar" id="act.catena_risc_step3.TOUT1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Outside warning<b><input class="cuVar" id="act.catena_risc_step2.TWARN1" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Inside timeout<b><input class="cuVar" id="act.catena_risc_step3.TOUT2" style="width:55px;" type="number" value="0" /></b></td>
+												<td  class="varLabel">Inside warning<b><input class="cuVar" id="act.catena_risc_step3.TWARN2" style="width:55px;" type="number" value="0" /></b></td>
+												<td></td>
+											</tr>								
+										</table>
+										</td>
+									</tr>
+									
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+									
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+									
+								</table>
+					       	</div>
+			
+			
+			
+			
+			
+			
+			
+							<!--------------->
+							<!--  Archive  -->
+							<!--------------->
+					       	<div id="tab5Content" class="inactive">
+					       	
+						       	<table align="center" cellspacing="0" cellpadding="0" style="width:100%;  padding-left:5px; padding-right:5px; padding-top:15px; ">
+							       	
+							       	<tr><td colspan="4">
+							       		<center><div class="varRowBK">File list</div></center>
+							       		</td></tr>
+									
+									<tr><td style="height:10px;"></td></tr>
+									
+									<tr><td style="width:150px;">Search</td>
+									<td><input style="width:350px;" class="searchText" type="search" id="serchArchive" placeHolder="type text to search in archive" onchange="searchInArchiveTable(this);" onkeyup="this.onchange();" onpaste="this.onchange();" oncut="this.onchange();" oninput="this.onchange();" ></input></td>
+									<td><img id="reloadParamsSet" src="update.png" style="width:32px; height:32px; " onClick="reload_parameters_set();" /></td>
+									</tr>
+										
+									<tr><td style="height:10px;"></td></tr>
+									
+									<tr><td colspan="4">
+									
+								       	<table id="archiveTable" class="archiveTableClass" cellspacing="0" >
+						        			<thead>
+						            			<tr style="background:lightGray;" class="uiHTableFooter">
+							                		<th class="firstCell" style="width:22px"></th>
+							                		<th class="internalCell" style="width:90px">Name</th>
+							                		<th class="internalCell" style="width:auto">Description</th>
+							                		<th class="internalCell" style="width:70px">Production</th>
+							                		<th class="internalCell" style="width:70px">Preform</th>
+							                		<th class="internalCell" style="width:70px">Container</th>
+							                		<th class="internalCell" style="width:60px">Last Date</th>
+							                		<th class="lastCell" style="width:60px">Created Date</th>
+						            			</tr>
+						        			</thead>
+			
+						        			<tbody>
+						            			<tr>
+									                <td class="firstCell" style="width:22px"><input type="checkbox" style="width:20px; height:20px;"></input></td>
+									                <td class="internalCell" data-search="" colspan="7">No items</td>
+						            			</tr>
+						            		
+						        			</tbody>
+			
+						        			<tfoot>
+							            		<tr style="background:lightGray;" class="uiHTableHeader" >
+							                		<th class="firstCell" style="width:22px"></th>
+							                		<th class="internalCell" style="width:90px">Name</th>
+							                		<th class="internalCell" style="width:auto">Description</th>
+							                		<th class="internalCell" style="width:70px">Production</th>
+							                		<th class="internalCell" style="width:70px">Preform</th>
+							                		<th class="internalCell" style="width:70px">Container</th>
+							                		<th class="internalCell" style="width:60px">Last Date</th>
+							                		<th class="lastCell" style="width:60px">Created Date</th>
+							            		</tr>
+						    	    		</tfoot>
+						        			
+						    			</table>
+									</td></tr>
+			
+									<tr><td colspan="4">
+									<table>
+									<tr><td>Current:</td><td style="width:270px; "><input id="archiveTableCurrent" class="uiVar" type="text" style="width:200px; height:26px; border:1px solid lightGray; " onchange="archiveTableCurrentRename(this)"></div></td>
+									<td><input class="paramSetButton" type="button" onClick="new_work_set();" value="New" /></td>
+									<td><input class="paramSetButton" type="button" onClick="load_work_set();" value="Load" /></td>
+									<td><input class="paramSetButton" type="button" onClick="save_work_set();" value="Save" /></td>
+									<td><input class="paramSetButton" type="button" onClick="erase_work_set();" value="Delete" /></td>
+									</tr>
+									</table>
+									</td></tr>
+								</table>
+			    
+					       	</div>
+			
+			
+			
+			
+					
+							<!--------------->
+							<!--  Alarms   -->
+							<!--------------->
+					       	<div id="tab6Content" class="inactive">
+			
+						       	<table align="center" cellspacing="0" cellpadding="0" style="width:100%; padding-left:5px; padding-right:5px; padding-top:15px; ">
+							       	
+							       	<tr><td colspan="4">
+							       		<center><div class="varRowBK" id="alarmsListTitle">Alarms list</div></center>
+							       		</td></tr>
+									
+									<tr><td style="height:10px;"></td></tr>
+									
+										<tr><td style="width:150px;">
+							       		Search
+							       		</td><td>
+							       		<input style="width:350px;" class="searchText" type="search" id="serchAlarm" placeHolder="type text to search in alarms" onchange="searchInAlarmTable(this);" onkeyup="this.onchange();" onpaste="this.onchange();" oncut="this.onchange();" oninput="this.onchange();" ></input>
+										</td><td>
+										<img id="reloadAlarms" class="actionIcon" src="update.png" style="width:32px; height:32px; filter:grayscale(80%)" onClick="reload_alarms();" disabled/>
+										</td>
+										</td><td>
+										<img id="historicalAlarms" class="actionIcon" src="history.png" style="width:32px; height:32px; filter:grayscale(80%);" title="Click to toggle historical alarms view" onClick="show_historical_alarms(this);" />
+										</td>
+										</tr>
+										
+										
+									<tr><td style="height:10px;"></td></tr>
+									
+									<tr><td colspan="4">
+									
+										<div class="cuVarList" id="mac.alarmList">
+											<table id="mac.alarmList.table" class="alarmTableClass" cellspacing="0" >
+												<thead>
+													<tr style="background:lightGray; height:17px;" class="uiHTableHeader">
+														<th class="firstCell" style="width:22px"></th>
+														<th class="internalCell" style="width:50px">Type</th>
+														<th class="internalCell" style="width:100px">Code</th>
+														<th class="internalCell" style="width:580px">Description</th>
+														<th class="internalCell" style="width:100px">Date/Time</th>
+														<th class="lastCell" style="width:-100px">Info</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+												<tfoot>
+													<tr style="background:lightGray; height:17px;" class="uiHTableFooter">
+														<th class="firstCell" style="width:22px"></th>
+														<th class="internalCell" style="width:50px">Type</th>
+														<th class="internalCell" style="width:100px">Code</th>
+														<th class="internalCell" style="width:580px">Description</th>
+														<th class="internalCell" style="width:100px">Date/Time</th>
+														<th class="lastCell" style="width:-100px">Info</th>
+													</tr>
+												</tfoot>
+											</table>								
+										</div> 
+			
+										<div class="uiVarList" id="historicalAlarmList" style="display:none;">
+											<table id="historicalAlarmList.table" class="historicalAlarmTableClass" cellspacing="0" >
+												<thead>
+													<tr style="background:lightGray; height:17px;">
+														<th class="firstCell" style="width:22px"></th>
+														<th class="internalCell" style="width:50px">Type</th>
+														<th class="internalCell" style="width:100px">Code</th>
+														<th class="internalCell" style="width:580px">Description</th>
+														<th class="internalCell" style="width:100px">Date/Time</th>
+														<th class="lastCell" style="width:-100px">Info</th>
+													</tr>
+												</thead>
+												<tbody>
+												</tbody>
+												<tfoot>
+													<tr style="background:lightGray; height:17px;">
+														<th class="firstCell" style="width:22px"></th>
+														<th class="internalCell" style="width:50px">Type</th>
+														<th class="internalCell" style="width:100px">Code</th>
+														<th class="internalCell" style="width:580px">Description</th>
+														<th class="internalCell" style="width:100px">Date/Time</th>
+														<th class="lastCell" style="width:-100px">Info</th>
+													</tr>
+												</tfoot>
+											</table>								
+										</div> 
+			
+									
+									</td></tr>
+			
+									<tr><td colspan="4">
+									<table>
+										<tr><td>No alarms:</td><td style="width:270px; "><div id="errorTableCounter" style="width:90px; height:26px; border:1px solid lightGray; "></div></td>
+										<td><input class="paramSetButton" type="button" onClick="send_cmd('!mac.reset_alarm')" value="Reset" /></td>
+										<td><input class="paramSetButton" type="button" onClick="new_work_set();" value="Export" /></td>
+										</tr>
+										</table>
+									</td></tr>
+								</table>
+								
+					       	</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+					
+							<!-------------------->
+							<!-- Manual Command -->
+							<!-------------------->
+					       	<div id="tab7Content" class="inactive">
+								<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+								
+								<tr>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="7"><div>Blow moulding</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Clamping unit</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Close" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.home" type="button" value="Homing" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.jog+" type="button" value="Jog Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.jog-" type="button" value="Jog Close" /></b></td>
+												<td><table style="width: 75px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.stampo.pos">0</div></td></tr></table></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Stretch Rod</td>
+												<td><b><input class="cuVarBt" id="act.stiro.open" type="button" value="Down" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stiro.close" type="button" value="Up" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stiro.home" type="button" value="Homing" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stiro.jog+" type="button" value="Jog Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stiro.jog-" type="button" value="Jog Close" /></b></td>
+												<td><table style="width: 75px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.stiro.pos">0</div></td></tr></table></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Mould Trasferitor X</td>
+												<td><b><input class="cuVarBt" id="act.trasfX.open" type="button" value="Open"/></b></td>
+												<td><b><input class="cuVarBt" id="act.trasfX.close" type="button" value="Close" /></b></td>
+												<td><b><input class="cuVarBt" id="act.trasfX.home" type="button" value="Homing" /></b></td>
+												<td><b><input class="cuVarBt" id="act.trasfX.jog+" type="button" value="Jog Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.trasfX.jog-" type="button" value="Jog Close" /></b></td>
+												<td><table style="width: 75px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.trasfX.pos">0</div></td></tr></table></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Mould Trasferitor Y</td>
+												<td><b><input class="cuVarBt" id="act.trasfY.open" type="button" value="Outside" /></b></td>
+												<td><b><input class="cuVarBt" id="act.trasfY.close" type="button" value="Inside" /></b></td>
+												<td></td>
+											</tr>								
+										</table>
+										
+									</td><td style="vertical-align:top;">
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Heating Chain</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Chain Transferitor X</td>
+												<td><b><input class="cuVarBt" id="act.manipX.open" type="button" value="Back" /></b></td>
+												<td><b><input class="cuVarBt" id="act.manipX.close" type="button" value="Front" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Chain Transferitor Z</td>
+												<td><b><input class="cuVarBt" id="act.manipZ.open" type="button" value="Up" /></b></td>
+												<td><b><input class="cuVarBt" id="act.manipZ.close" type="button" value="Down" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Chain Transferitor Picker</td>
+												<td><b><input class="cuVarBt" id="act.manipP.open" type="button" value="Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.manipP.close" type="button" value="Close" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Chain Stepper I°</td>
+												<td><b><input class="cuVarBt" id="act.catena_risc_step1.open" type="button" value="Outsude" /></b></td>
+												<td><b><input class="cuVarBt" id="act.catena_risc_step1.close" type="button" value="Inside" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Chain Stepper II°</td>
+												<td><b><input class="cuVarBt" id="act.catena_risc_step2.open" type="button" value="Outsude" /></b></td>
+												<td><b><input class="cuVarBt" id="act.catena_risc_step2.close" type="button" value="Inside" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Chain Stepper III°</td>
+												<td><b><input class="cuVarBt" id="act.catena_risc_step3.open" type="button" value="Outsude" /></b></td>
+												<td><b><input class="cuVarBt" id="act.catena_risc_step3.close" type="button" value="Inside" /></b></td>
+												<td></td>
+											</tr>								
+										</table>
+										
+										</td></tr><tr><td style="vertical-align:top;">
+																	
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="7"><div>Air unit</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Primary Air</td>
+												<td><b><input class="cuVarBt" id="act.ariaI.open" type="button" value="Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.ariaI.close" type="button" value="Close" /></b></td>
+												<td><table style="width: 80px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.ariaI.pos">0</div></td></tr></table></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Secondary Air</td>
+												<td><b><input class="cuVarBt" id="act.ariaII.open" type="button" value="Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.ariaII.close" type="button" value="Close" /></b></td>
+												<td><table style="width: 80px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.ariaII.pos">0</div></td></tr></table></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Air Discharge</td>
+												<td><b><input class="cuVarBt" id="act.ariaS.open" type="button" value="Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.ariaS.close" type="button" value="Close" /></b></td>
+												<td><table style="width: 80px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.ariaS.pos">0</div></td></tr></table></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Air Recovery</td>
+												<td><b><input class="cuVarBt" id="act.ariaR.open" type="button" value="Open" /></b></td>
+												<td><b><input class="cuVarBt" id="act.ariaR.close" type="button" value="Close" /></b></td>
+												<td><table style="width: 80px;"><tr><td class="varLabel">Pos<div class="cuVar" id="act.ariaR.pos">0</div></td></tr></table></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Bottle pressure</td>
+												<td><div class="cuVarIstogramContainer" id="" style=""><div class="cuVar" id="act.pressBott.Pos" style="height: 0px; font-size: 0px;" ></div><div class="cuVarIstogram" id="act.pressBott.Pos-I" style=""></div></div></td>
+												<td><div class="cuVar" id="act.pressBott.rPos"></div></td>
+												<td>bar</td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Line pressure</td>
+												<td><div class="cuVarIstogramContainer" id="" style=""><div class="cuVar" id="act.pressLinea.Pos" style="height: 0px; font-size: 0px;" ></div><div class="cuVarIstogram" id="act.pressLinea.Pos-I" style="background-color:navy;"></div></div></td>
+												<td><div class="cuVar" id="act.pressLinea.rPos"></div></td>
+												<td>bar</td>
+											</tr>								
+										</table>
+										</td>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Owens</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Aspirator</td>
+												<td><b><input class="cuVarBt" id="act.aspirazione.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.aspirazione.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Ventilator</td>
+												<td><b><input class="cuVarBt" id="act.ventilazione.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.ventilazione.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Cooling water</td>
+												<td><b><input class="cuVarBt" id="act.raff_forni.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.raff_forni.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Cooling Air</td>
+												<td><b><input class="cuVarBt" id="act.aria_forni.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.aria_forni.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM">Heating IRs</td>
+												<td><b><input class="cuVarBt" id="act.forni.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.forni.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>								
+										</table>
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Preform Load</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Load support</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="Outside" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Inside" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Pit stopper</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="Outside" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Inside" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Orientator</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Roll motor</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Fan motor</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>
+			
+											<tr>
+												<td class="varRowSM">Elevator motor</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM">Unjammer</td>
+												<td><b><input class="cuVarBt" id="act.stampo.open" type="button" value="On" /></b></td>
+												<td><b><input class="cuVarBt" id="act.stampo.close" type="button" value="Off" /></b></td>
+												<td></td>
+											</tr>
+			
+										</table>
+										</td>
+									</tr>
+									
+								</table>
+					       </div>
+					       
+			
+			
+			
+			
+			
+			
+			
+					       
+					       
+						<!---------------->
+					    <!-- Settings   -->
+						<!---------------->
+					 	<div id="tab8Content" class="inactive">
+					 	
+							<div id="tab81Content" class="active">
+					 	
+								<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+								<tr>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="7"><div>Blow Moulding</div></td>
+											</tr>
+			
+											<tr>
+												<td class="varRowSM"><p>Clamping unit data</p></td>
+												<td class="varLabel">Pos<b><input class="cuVar" id="act.stampo.rPos" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.stampo.speed" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">Torque<b><input class="cuVar" id="act.stampo.torque" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">
+													<table class="legendVar">
+													<tr><td><div class="cuVar" id="act.stampo.min_speed"></div></td><td>rpm</td></tr>
+													<tr><td><div class="cuVar" id="act.stampo.max_speed"></div></td><td>rpm</td></tr>
+													</table>
+												</td>									
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Clamping unit Open</p></td>
+												<td class="varLabel">Acc<b><input class="cuVar" id="act.stampo.acc_auto1" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Dec<b><input class="cuVar" id="act.stampo.dec_auto1" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.stampo.speed_auto1" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel"></td>									
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Clamping unit Close</p></td>
+												<td class="varLabel">Acc<b><input class="cuVar" id="act.stampo.acc_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Dec<b><input class="cuVar" id="act.stampo.dec_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.stampo.speed_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel"></td>
+											</tr>
+			
+											<tr><td class="spacer" colspan=5></td></tr>
+											
+											<tr>
+												<td class="varRowSM"><p>Stretch Rod data</p></td>
+												<td class="varLabel">Pos<b><input class="cuVar" id="act.stiro.rPos" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.stiro.speed" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">Torque<b><input class="cuVar" id="act.stiro.torque" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">
+													<table class="legendVar">
+													<tr><td><div class="cuVar" id="act.stiro.min_speed"></div></td><td>rpm</td></tr>
+													<tr><td><div class="cuVar" id="act.stiro.max_speed"></div></td><td>rpm</td></tr>
+													</table>
+												</td>									
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Stretch Rod Down</p></td>
+												<td class="varLabel">Acc<b><input class="cuVar" id="act.stiro.acc_auto1" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Dec<b><input class="cuVar" id="act.stiro.dec_auto1" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.stiro.speed_auto1" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel"></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Stretch Rod Up</p></td>
+												<td class="varLabel">Acc<b><input class="cuVar" id="act.stiro.acc_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Dec<b><input class="cuVar" id="act.stiro.dec_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.stiro.speed_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel"></td>
+											</tr>
+											
+											<tr><td class="spacer" colspan=5></td></tr>
+			
+											<tr>
+												<td class="varRowSM"><p>Mold Trasferitor X data</p></td>
+												<td class="varLabel">Pos<b><input class="cuVar" id="act.trasfX.rPos" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.trasfX.speed" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">Torque<b><input class="cuVar" id="act.trasfX.torque" style="width:75px;" type="number" value="" readonly /></b></td>
+												<td class="varLabel">
+													<table class="legendVar">
+													<tr><td><div class="cuVar" id="act.trasfX.min_speed"></div></td><td>rpm</td></tr>
+													<tr><td><div class="cuVar" id="act.trasfX.max_speed"></div></td><td>rpm</td></tr>
+													</table>
+												</td>									
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Mold Trasferitor X forward</p></td>
+												<td class="varLabel">Acc<b><input class="cuVar" id="act.trasfX.acc_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Dec<b><input class="cuVar" id="act.trasfX.dec_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.trasfX.speed_auto2" style="width:75px;" type="number" value="" /></b></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Mold Trasferitor X backward</p></td>
+												<td class="varLabel">Acc<b><input class="cuVar" id="act.trasfX.acc_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Dec<b><input class="cuVar" id="act.trasfX.dec_auto2" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Speed<b><input class="cuVar" id="act.trasfX.speed_auto2" style="width:75px;" type="number" value="" /></b></td>
+											</tr>								
+										</table>
+										
+									</td><td style="vertical-align:top;">
+									
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Heating Chain</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Chain Transferitor X</p></td>
+												<td class="varLabel">Forward timeout pause<b><input class="cuVar" id="settings.trasf_x_forward_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Chain Transferitor Z</p></td>
+												<td class="varLabel">Down pause<b><input class="cuVar" id="settings.chain_trasf_z_down_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Chain Transferitor Picker</p></td>
+												<td class="varLabel">Open pause<b><input class="cuVar" id="settings.chain_picker_open_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Close pause<b><input class="cuVar" id="settings.chain_picker_close_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Chain Stepper I°</p></td>
+												<td class="varLabel">Outside pause<b><input class="cuVar" id="settings.chain_stepper1_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Chain Stepper II°</p></td>
+												<td  class="varLabel">Outside pause<b><input class="cuVar" id="settings.chain_stepper2_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>								
+											<tr>
+												<td class="varRowSM"><p>Chain Stepper III°</p></td>
+												<td  class="varLabel">Outside pause<b><input class="cuVar" id="settings.chain_stepper3_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>								
+										</table>
+										</td>
+									</tr>
+								<tr>
+								
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								</table>
+					      	</div>
+					       
+							<div id="tab82Content" class="inactive">
+								<table cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+			
+								<tr>					
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="5"><div>Owens</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>IRs Turn ON/OFF ramp</p></td>
+												<td class="varLabel">Turn ON Delay<b>(sec)<input class="cuVar" id="settings.startup_owens_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Turn ON Steps<b><input class="cuVar" id="settings.startup_owens_cycles" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Turn OFF Delay<b>(sec)<input class="cuVar" id="settings.turnoff_owens_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Turn OFF Steps<b><input class="cuVar" id="settings.turnoff_owens_cycles" style="width:75px;" type="number" value="" /></b></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>IRs stanby/work ramp</p></td>
+												<td class="varLabel">Standby to Work Delay<b>(sec)<input class="cuVar" id="settings.owens_standby_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Standby to Work Steps<b><input class="cuVar" id="settings.owens_standby_cycles" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Work to Standby Delay<b>(sec)<input class="cuVar" id="settings.owens_towork_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Work to Standby Setps<b><input class="cuVar" id="settings.owens_towork_cycles" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>IRs initial transition</p></td>
+												<td class="varLabel">No. Cycles<b><input class="cuVar" id="settings.initial_owens_cycles" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Correct ratio (%)<b><input class="cuVar" id="settings.initial_owens_ratio" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Aspirator Turn OFF</p></td>
+												<td class="varLabel">Time before stop (sec)<b><input class="cuVar" id="settings.aspirator_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Preform Load</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Load support</p></td>
+												<td class="varLabel">Forward timeout<b><input class="cuVar" id="settings.pref_load_inside_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Backword timeout<b><input class="cuVar" id="settings.pref_load_outside_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Pit stopper</p></td>
+												<td class="varLabel">Outside timeout<b><input class="cuVar" id="settings.pit_stopper_inside_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Inside timeout<b><input class="cuVar" id="settings.pit_stopper_outside_pause_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								</table>
+					       	</div>
+			
+			
+			
+			
+							<div id="tab83Content" class="inactive">
+								<table align="center" cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+			
+								<tr>					
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="5"><div>Manipolator</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Manipolator X</p></td>
+												<td class="varLabel">Forward pause<b>(sec)<input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Backword pause<b>(sec)<input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>>Manipolator Y</p></td>
+												<td class="varLabel">Up pause<b>(sec)<input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Down pause<b>(sec)<input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Manipolator Picker</p></td>
+												<td class="varLabel">Close pause<b>(sec)<input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Open pause<b>(sec)<input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Aspirator Turn OFF</p></td>
+												<td class="varLabel">Time before stop (sec)<b><input class="cuVar" id="settings.aspirator_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Override</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>User Params</p></td>
+												<td class="varLabel">Param #1<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Param #2<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>User Params</p></td>
+												<td class="varLabel">Param #3<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Param #4<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								</table>
+					       	</div>
+			
+			
+			
+							<div id="tab84Content" class="inactive">
+								<table cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+			
+								<tr>					
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Orientator</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Roll motor</p></td>
+												<td class="varLabel">Time before stop<b><input class="cuVar" id="settings.startup_owens_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Fan motor</p></td>
+												<td class="varLabel">Time before stop<b><input class="cuVar" id="settings.startup_owens_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											</tr>								
+										</table>
+										</td>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Elevator</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Elevator motor</p></td>
+												<td class="varLabel">Time before stop<b><input class="cuVar" id="settings.startup_owens_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Unjammer</p></td>
+												<td class="varLabel">Time before stop<b><input class="cuVar" id="settings.startup_owens_delay_ms" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								</table>
+					       	</div>
+			
+			
+			
+							<div id="tab85Content" class="inactive">
+								<table cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+			
+								<tr>					
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="5"><div>Electrical Power</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>24V Voltage limits</p></td>
+												<td class="varLabel">Min voltage<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Max voltage<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>220V Voltage limits</p></td>
+												<td class="varLabel">Min voltage<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Max voltage<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>380V Voltage limits</p></td>
+												<td class="varLabel">Min voltage<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Max voltage<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="3"><div>Air Pressue</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Services Pressure limits</p></td>
+												<td class="varLabel">Min pressure<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Max pressure<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Blow Pressure limits</p></td>
+												<td class="varLabel">Min pressure<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td class="varLabel">Max pressure<b><input class="cuVar" id="" style="width:75px;" type="number" value="" /></b></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								</table>
+					       	</div>
+								
+							<div id="tab86Content" class="inactive">
+								<table cellspacing="0" cellpadding="0" border="0" style="width:99%; ">
+			
+								<tr>					
+									<td style="vertical-align:top;">							
+										<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+											<tr>
+												<td class="varRowBK" colspan="5"><div>Machine settings</div></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Blow Pressure Trasnducer</p></td>
+												<td class="varLabel"><div class="cuVarStatIO" id="" style="background-color: darkGray;"></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Line Pressure Trasnducer</p></td>
+												<td class="varLabel"><div class="cuVarStatIO" id="" style="background-color: darkGray;"></td>
+												<td></td>
+											</tr>
+											<tr>
+												<td class="varRowSM"><p>Air recovery</p></td>
+												<td class="varLabel"><div class="cuVarStatIO" id="" style="background-color: darkGray;"></div></td>
+												<td></td>
+												<td></td>
+											</tr>
+										</table>
+										</td>
+									</tr>
+								<tr>
+									<td style="vertical-align:top;">							
+										</td>
+									<td style="vertical-align:top;">							
+										</td>
+									</tr>
+								</table>
+					       	</div>
+			
+							<div class="tab-panel-bottom">
+							    <ul class="tab-link-vert">
+							        <li class="active"><a id="tab81" onclick="set_tab(tabWorkspaces[2], this);" href="javascript:void(0)">Mold & Chain</a></li>
+							        <li><a id="tab82" onclick="set_tab(tabWorkspaces[2], this);" href="javascript:void(0)">Load & Owens</a></li>
+							        <li><a id="tab83" onclick="set_tab(tabWorkspaces[2], this);" href="javascript:void(0)">Manipolators</a></li>
+							        <li><a id="tab84" onclick="set_tab(tabWorkspaces[2], this);" href="javascript:void(0)">Elevator & Orientator</a></li>
+							        <li><a id="tab85" onclick="set_tab(tabWorkspaces[2], this);" href="javascript:void(0)">Power & Auxiliaries</a></li>
+							        <li><a id="tab86" onclick="set_tab(tabWorkspaces[2], this);" href="javascript:void(0)">Machine Settings</a></li>
+							    	</ul>
+					    		</div>								
+								
+					       </div>
+			
+			
+			  
+			
+			    
+			
+			
+			
+			
+					
+						<!---------------->
+						<!--  Services  -->		
+						<!---------------->
+						<div id="tab9Content" class="inactive">
+							<table align="center" cellpadding=0 cellspacing=0 style="width: 100%;">
+								<tr>
+									<td>
+										<div id="tab91Content" class="inactive">
+											<div class="cuVar" id="sys.console" style="height:760px; width:auto; display:block;
+											    padding-left: 12px; 
+												margin-top:5px; margin-left:5px; margin-right:15px; margin-bottom:0px;
+												border-radius: 11px 0px 0px 11px; 
+												background-color:#212121; color:lightGray; 
+												border:1px solid darkGray; 
+												overflow:auto; ">
+												</div>
+											</div>
+											
+										<div id="tab92Content" class="inactive">
+												<iframe id="serviceHTTPframe" class="cuHTTP" src=""style="height: 100%; width: 98%; display:block;
+											    	padding-left: 12px; 
+													margin-top:5px; margin-left:5px; margin-right:15px; margin-bottom:0px; 
+													border-radius: 11px 0px 0px 11px; 
+													background-color:#FAFAFA; color:#121212; 
+													border:1px solid darkGray; 
+													overflow:auto; ">
+													<p>Your browser does not support iframes.</p>
+													</iframe>
+											</div>
+			
+										<div id="tab93Content" class="inactive">
+											<div class="cuHTTP" id="serviceIO" style="height:760px; width:auto; display:block;
+											    padding-left: 12px; 
+												margin-top:5px; margin-left:5px; margin-right:15px; margin-bottom:0px; 
+												border-radius: 11px 0px 0px 11px; 
+												background-color:#FAFAFA; color:#121212; 
+												border:1px solid darkGray; 
+												overflow:auto; ">
+			
+												<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+													
+													<tr>
+														<td class="varRowBK" colspan="8"><div>Board #1 Digital Input</div></td>
+														</tr>										
+													<tr>
+														<td class="varLabel">DI1</td>
+														<td class="varLabel">DI2</td>
+														<td class="varLabel">DI3</td>
+														<td class="varLabel">DI4</td>
+														<td class="varLabel">DI5</td>
+														<td class="varLabel">DI6</td>
+														<td class="varLabel">DI7</td>
+														<td class="varLabel">DI8</td>
+														</tr>
+													<tr>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.1-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.1">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.2-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.2">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.3-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.3">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.4-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.4">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.5-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.5">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.6-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.6">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.7-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.7">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DI.1.8-S" style="background-color: darkGray;"></div><div class="cuVar" id="DI.1.8">-</div></td>
+														</tr>
+													
+													<tr>
+														<td class="varRowBK" colspan="8"><div>Board #1 Digital Output</div></td>
+														</tr>										
+													<tr>
+														<td class="varLabel">DI1</td>
+														<td class="varLabel">DI2</td>
+														<td class="varLabel">DI3</td>
+														<td class="varLabel">DI4</td>
+														<td class="varLabel">DI5</td>
+														<td class="varLabel">DI6</td>
+														<td class="varLabel">DI7</td>
+														<td class="varLabel">DI8</td>
+														</tr>
+				
+													<tr>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.1-S" onClick="send_cmd('!do.1.1=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.1">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.2-S" onClick="send_cmd('!do.1.2=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.2">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.3-S" onClick="send_cmd('!do.1.3=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.3">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.4-S" onClick="send_cmd('!do.1.4=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.4">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.5-S" onClick="send_cmd('!do.1.5=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.5">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.6-S" onClick="send_cmd('!do.1.6=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.6">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.7-S" onClick="send_cmd('!do.1.7=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.7">-</div></td>
+														<td class="varLabel"><div class="cuVarStatIO" id="DO.1.8-S" onClick="send_cmd('!do.1.8=!')" style="background-color: darkGray;"></div><div class="cuVar" id="DO.1.8">-</div></td>
+														</tr>
+													</table>
+												</div>
+											</div>
+			
+									
+										<div id="tab94Content" class="inactive">
+											<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+												<tr>
+													<td class="varRowBK" colspan="5"><div>Remote Service</div></td>
+												</tr>
+												<tr>
+													<td class="varRowSM"><p>Click START button to enable remote connection</p></td>
+													<td class="varLabel"><input class="bigButton" id="startRemote" type="button" value="START" data-lang="uiRemoteSTART" onclick="start_remote_server(true)"/></td>
+												</tr>
+												<tr><td></td><td></td></tr>
+												<tr>
+													<td class="varRowSM"><p>Click STOP button to terminate remote connection</p></td>
+													<td class="varLabel"><input class="bigButton" id="stopRemote" type="button" value="STOP" data-lang="uiRemoteSTOP" onclick="stop_remote_server(true)"/></td>
+												</tr>
+
+												<tr><td></td><td></td></tr>
+												<tr>
+													<td class="" colspan="2">
+													<center>
+														<table cellspacing="3" cellpadding="3" border="0" style="margin-top:10px; padding:10px; border:1px solid lightGray; margin-left:5px; border-radius: 11px 11px 11px 11px; width:99%; ">
+															<tr>
+																<td style="width:150px;">xProject Assist Center address</td><td  style="width:250px;"><input id="gatewayAddress" style="width:200px;" class="uiVar" data-rel="settings" onclick="set_remote_gateway(this.value);" value=""/></td>
+																</tr>
+															<tr>															
+																<td>xProject Assist Center resource</td><td><input id="gatewayResource" class="uiVar" data-rel="settings" style="width:350px;onclick="set_remote_gateway_resource(this.value);" value=""/></td>
+																</tr>
+															<tr>															
+																<td>xProject Assist Center port</td><td><input id="gatewayPort" class="uiVar" data-rel="settings" style="width:75px; onclick="set_remote_gateway_port(this.value);" value=""/></td>
+																</tr>
+															</table>
+														</center>
+													</td>
+												</tr>
+												
+												<tr><td></td><td></td></tr>
+												<tr>
+													<td class="" colspan="2"><div id="remote_content" style="position:relative; display:block; width:98%; max-width:1020px; height:350px; overflow-y:scroll; overflow-x:scroll; border:1px solid lightGray;"></div></td>
+												</tr>
+												
+											</table>
+											</div>
+									
+									
+										</td></tr>
+										<tr><td>									
+										<div class="tab-panel-bottom">
+										    <ul class="tab-link-vert">
+										        <li class="active"><a id="tab91" onclick="set_tab(tabWorkspaces[1], this);" href="javascript:void(0)">CU Console</a></li>
+										        <li><a id="tab92" onclick="set_tab(tabWorkspaces[1], this);" href="javascript:void(0)">CU Utilities</a></li>
+										        <li><a id="tab93" onclick="set_tab(tabWorkspaces[1], this);" href="javascript:void(0)">I/O</a></li>
+										        <li><a id="tab94" onclick="set_tab(tabWorkspaces[1], this);" href="javascript:void(0)">Remote Service</a></li>
+										    	</ul>
+								    		</div>
+								    		<div class="" style="float:right">	
+								    			<img id="reloadHTTP" class="actionIcon" src="update.png" style="width: 32px; height: 32px; position: relative; top:-50px; right:20px;" onclick="reload_services();" disabled="">
+								    			</div>								    										
+										</td>
+									</tr>
+								</table>
+					       
+					       </div>
+				       
+				       
+				       
+				       
+				       
+					
+						<!------------->
+						<!--  Debug  -->		
+						<!------------->
+			       		<div id="tab10Content" class="inactive">
+							<center>        
+							<table><tr><td>
+							<table cellspacing="3" cellpadding="3" border="0" 
+							    style="font-family:monospace; font-name:calibri; font-size:13px; width:800px; table-layout:fixed; 
+												border:1px solid #CCCCCC; 
+												-moz-border-radius: 11px;
+												-webkit-border-radius: 11px;
+												border-radius: 11px;
+												-khtml-border-radius: 11px;
+								                -moz-box-shadow: 6px  6px 5px #dedede;  
+								                -webkit-box-shadow:  6px  6px 5px #dedede; 
+								                filter: progid:DXImageTransform.Microsoft.Shadow(color='#dedede', Direction=135, Strength=5); 
+								                box-shadow: 6px 6px 5px #dedede;					
+												padding:15px;
+							    ">
+										        
+							<!-- <tr><td colspan="1"><div id="server"></div></td></tr> -->
+							<tr><td style="width:300px;"></td><td style="width:160px;" ></td><td style="width:200px; "></td></tr>
+							<tr><td colspan="3" style="height:1px; border-bottom:1px solid lightGray;"></td></tr>
+							<tr><td>Program ver.</td><td><b><div class="cuVar" id="mac.prgVer">...</div></b></td>
+							<td rowspan="5" style="width:100px; ">
+								<table cellspacing=3; cellpadding=3 style="text-align:center; width:100%; font-family:calibri; ">
+									<tr><td style="background-color:rgb(200,200,200)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.auto')">AUTO</a></td><td style="background-color:rgb(120, 166, 234)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.man')">MANUAL</a></td></tr>
+									<tr><td style="background-color:rgb(150,230,150)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.power_on')">POWER ON</a></td><td style="background-color:rgb(212, 170, 170)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.power_off')">POWER OFF</a></td></tr>
+									<tr><td style="background-color:rgb(150,230,150)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.load_on')">LOAD ON</a></td><td style="background-color:rgb(212, 170, 170)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.load_off')">LOAD OFF</a></td></tr>
+									<tr><td style="background-color:rgb(150,230,150)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.blow_on')">BLOW ON</a></td><td style="background-color:rgb(212, 170, 170)"><a style="color:rgb(30,30,30)" href="javascript:void(0)" onClick="send_cmd('!mac.blow_off')">BLOW OFF</a></td></tr>
+									<tr><td style="background-color:rgb(200,240,200)"><a style="color:rgb(10,10,10)" href="javascript:void(0)" onClick="send_cmd('!mac.start')">START</a></td><td style="background-color:rgb(240,210,210)" ><a style="color:rgb(10,10,10)" href="javascript:void(0)" onClick="send_cmd('!mac.stop')">STOP</a></td></tr>
+									<tr><td colspan=2 style="background-color:rgb(250,100,100)"><a style="color:rgb(90, 1, 1);" href="javascript:void(0)" onClick="send_cmd('!mac.emergency')">EMERGENCY</a></td></tr>
+									<tr><td colspan=2 style="background-color:rgb(200,200,200)"><a style="color:rgb(20,20,20)" href="javascript:void(0)" onClick="send_cmd('!mac.reset_alarm')">RESET ALARMS</a></td></tr>
+								</table>
+							</td><td><b>DigIN</td>
+							</tr>
+							<tr><td>Machine Status</td><td><b><div class="cuVar" id="mac.stat">...</div><b></br/><div class="cuVar" id="mac.stat_time"></div></br/><div class="cuVar" id="mac.stat_seq">[]</div></td>
+							<td style="width:110px; ">
+								<div class="cuVarStatIOsm" id="DI.1.1-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.1.2-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.1.3-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.1.4-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.1.5-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.1.6-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.2.1-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.2.2-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.2.3-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.2.4-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.2.5-S" style="background-color: darkgreen;"></div>
+								<div class="cuVarStatIOsm" id="DI.2.6-S" style="background-color: darkgreen;"></div>
+								<table>
+									<tr>
+										<td>
+											<div class="cuVar" id="DI.1.1">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.1.2">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.1.3">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.1.4">-</div>
+										</td></tr><tr><td>
+											<div class="cuVar" id="DI.1.5">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.1.6">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.2.1">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.2.2">-</div>
+										</td></tr><tr><td>
+											<div class="cuVar" id="DI.2.3">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.2.4">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.2.5">-</div>
+											</td><td>
+											<div class="cuVar" id="DI.2.6">-</div>
+										</td>
+									</tr>
+								</table>
+								</td></tr>
+								
+								
+							<tr><td>Status message</td><td>...</td><td style="width:100px; "></td></tr>
+							<tr><td>No. Actuators</td><td><b><div class="cuVar" id="mac.nAct">...</div></b></td><td style="width:100px; "></td></tr>
+							<tr><td>Power/Load/Blow</td><td><b><div class="cuVarStat" id="mac.power-S"></div><div class="cuVarStat" id="mac.load-S"></div><div class="cuVarStat" id="mac.blow-S"></div></b></td><td style="width:100px; "></td></tr>
+							<tr><td colspan="2">Prod/Cycle/Air discharge/Mold</td><td style="font-size:80%; display: flex;"><div class="cuVar" id="workSet.production"></div>/<div class="cuVar" id="mac.prodCycleTime"></div>/<div class="cuVar" id="workSet.discharge_air_time"></div>/<div class="cuVar" id="mac.moldCycleTime"></div></td></tr>
+							<tr><td colspan="3" style="height:1px; border-bottom:1px solid lightGray;"></td></tr>
+							<tr><td>Mold</td><td><b><div class="cuVar" id="act.stampo.Rpos">...</div><div class="cuVar" style="visibility:hidden; height:0px;" id="act.stampo.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.stampo.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td style="display:inline-flex;"><div class="cuVar" id="act.stampo.time2">0</div>/<div class="cuVar" id="act.stampo.time21">0</div>/<div class="cuVar" id="act.stampo.time22">0</div></td></tr>
+							<tr><td>Stretch</td><td><b><div class="cuVar" id="act.stiro.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.stiro.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.stiro.time1">0</div></td></tr>
+							<tr><td>Trasferitor X</td><td><b><div class="cuVar" id="act.trasfX.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.trasfX.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.trasfX.time1">0</div></td></tr>
+							<tr><td>Trasferitor Y</td><td><b><div class="cuVar" id="act.trasfY.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.trasfY.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.trasfY.time1">0</div></td></tr>
+							<tr><td>Pref.Bott. Holder</td><td><b><div class="cuVar" id="act.bloccoBP.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.bloccoBP.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.bloccoBP.time1">0</div></td></tr>
+							<tr><td colspan="3" style="height:1px; border-bottom:1px solid lightGray;"></td></tr>
+							<tr><td>I&deg; Air valvle</td><td><b><div class="cuVar" id="act.ariaI.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.ariaI.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.ariaI.time1">0</div></td></tr>
+							<tr><td>II&deg; Air valvle</td><td><b><div class="cuVar" id="act.ariaII.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.ariaII.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.ariaII.time1">0</div></td></tr>
+							<tr><td>Discharge Air valvle</td><td><b><div class="cuVar" id="act.ariaS.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.ariaS.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.ariaS.time1">0</div></td></tr>
+							<tr><td>Bottle pressure</td><td><b><div class="cuVar" id="act.pressBott.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.pressBott.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.pressBott.time1">0</div></td></tr>
+							<tr><td>Line pressure</td><td><b><div class="cuVar" id="act.pressLinea.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.pressLinea.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.pressLinea.time1">0</div></td></tr>
+							<tr><td colspan="3" style="height:1px; border-bottom:1px solid lightGray;"></td></tr>
+							<tr><td>Heating chain step</td><td><b><div class="cuVar" id="act.catena_risc_step1.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.catena_risc_step1.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.catena_risc_step1.time1">0</div></td></tr>
+							<tr><td>Chain Trasferitor X</td><td><b><div class="cuVar" id="act.manipX.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.manipX.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.manipX.time1">0</div></td></tr>
+							<tr><td>Chain Trasferitor Z</td><td><b><div class="cuVar" id="act.manipZ.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.manipZ.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.manipZ.time1">0</div></td></tr>
+							<tr><td>Chain Trasferitor Pick</td><td><b><div class="cuVar" id="act.manipP.pos">...</div></b></td><td style="width:100px; "><div class="cuVarIstogramContainer" style=""><div class="cuVarIstogram" id="act.manipP.pos-I" style="width:50px; height:6px; background-color:darkGreen; border:1px solid black;"></div></div></td><td><div class="cuVar" id="act.manipP.time1">0</div></td></tr>
+							<tr><td>Preforms Buffer</td><td><b><div class="cuVar" id="mac.NumPrefReg">...</div></b></td><td style="width:100px; "><div class="cuVar" id="mac.PrefReg">[]</div></td> </tr>
+							<tr><td colspan="3" style="height:1px; border-bottom:1px solid lightGray;"></td></tr>					
+							<tr><td colspan="3"><div id="error">...</div></td> </tr>
+							<tr><td>Refresh Rate (ms)</td><td><input id="refreshRate" data-rel="settings" onclick="set_refresh_rate(this.value);" value="250"/></td><td></td></tr>
+							<tr><td>System time (ms)</td><td><div class="cuVar" id="sys.time">...</div></td><td></td></tr>
+							<tr><td colspan="3" style="height:1px; border-bottom:1px solid lightGray;"></td></tr>
+							<!--
+							<tr><td>Test</td><td><input type="file" id="file_input" webkitdirectory="" directory="" /></td><div id="list_of_files"></div><td></td></tr>
+							<script>
+								var list = document.getElementById('list_of_files');
+								list.onchange(function(event) {
+							  		var listOfFiles = event.target.files;
+							  		for (var i = 0, l = listOfFiles.length; i < l; ++i) {
+								  		list.innerHTML += '<p>'+ listOfFiles[i].name +'</p>');
+							  		}
+								});							
+							</script>
+							-->
+							
+							</table>
+						
+							</td><td style="padding-left: 55px;">
+							<table cellspacing="3" cellpadding="3" border="0" 
+							    style="font-family:monospace; font-name:calibri; font-size:13px; width:--00px; table-layout:fixed; 
+												border:1px solid #CCCCCC; 
+												-moz-border-radius: 11px;
+												-webkit-border-radius: 11px;
+												border-radius: 11px;
+												-khtml-border-radius: 11px;
+								                -moz-box-shadow: 6px  6px 5px #dedede;  
+								                -webkit-box-shadow:  6px  6px 5px #dedede; 
+								                filter: progid:DXImageTransform.Microsoft.Shadow(color='#dedede', Direction=135, Strength=5); 
+								                box-shadow: 6px 6px 5px #dedede;					
+												padding:5px; ">
+								<tr><td style="width:--00px; text-align:left;  ">
+									<div>Trace Stretch</div>
+									<b><div class="cuVar" id="act.stiro.trace">.</div></b>
+									<div style="display:none" id="act.stiro.TPos" class="cuVar" style=""></div>
+									<div><canvas class="cuVarTrace" id="act.stiro.TPos-T" style="width:200px; height:150px; background-color:lightGray; border:1px solid black;" /></div>
+									</td></tr>
+								<tr><td style="width:--00px; text-align:left;  ">
+									<div>Trace Mold</div>
+									<b><div class="cuVar" id="act.stampo.trace">.</div></b>
+									<div style="display:none" id="act.stampo.TPos" class="cuVar" style=""></div>
+									<div><canvas class="cuVarTrace" id="act.stampo.TPos-T" style="width:200px; height:150px; background-color:lightGray; border:1px solid black;" /></div>
+									</td></tr>
+								</table>
+							</td></tr>
+						</table>
+				       </div>
+				       
+				       
+			        
+					</div>
+					
+			
+				
+					<!---------------->
+					<!--  SoftKey   -->		
+					<!---------------->
+					</td><td style="vertical-align: top;">
+						<div class="softkey-panel" style="float:left;">
+						    <ul class="softkey">
+						        <li class="off" id="softkey1"><div id="mac.single_load-SK" class="cuVarSK"><a onclick="set_single_load_on_off(this.parentElement.parentElement);" href="javascript:void(0)"><div id="uiSK1" class="uiLabel">Single load</div></a></div></li>
+						        <li class="off" id="softkey2"><div id="mac.load-SK" class="cuVarSK"><a onclick="set_load_on_off(this.parentElement.parentElement);" href="javascript:void(0)"><div id="uiSK2" class="uiLabel">Continuous load</div></a></div></li>
+						        <li class="off" id="softkey3"><div id="mac.heat-SK" class="cuVarSK"><a onclick="set_heat_on_off(this.parentElement.parentElement);" href="javascript:void(0)"><div id="uiSK3" class="uiLabel">Heat</div></a></div></li>
+						        <li class="off" id="softkey4"><div id="mac.blow-SK" class="cuVarSK"><a onclick="set_blow_on_off(this.parentElement.parentElement);" href="javascript:void(0)"><div id="uiSK4" class="uiLabel">Blow</div></a></div></li>
+						        <li class="off" id="softkey5"><div id="mac.inline_output-SK" class="cuVarSK"><a onclick="set_inline_output_on_off(this.parentElement.parentElement); " href="javascript:void(0)"><div id="uiSK5" class="uiLabel">In-line output</div></a></div></li>
+						        <li class="off" id="softkey6"><a onclick="send_cmd('!mac.reset_alarm'); push_softkey(this.parentElement);" href="javascript:void(0)"><div id="uiSK6" class="uiLabel">Reset Alarms</div></a></li>
+						    </ul>
+						</div>
+
+						<div style="height:0px; position:fixed; display:none; border:0px solid red;" >
+							<div class="cuVar" id="mac.power"></div>
+							<div class="cuVar" id="mac.load"></div>
+							<div class="cuVar" id="mac.single_load"></div>
+							<div class="cuVar" id="mac.heat"></div>
+							<div class="cuVar" id="mac.blow"></div>
+							<div class="cuVar" id="mac.inline_output"></div>
+						</div>
+					</td>
+			
+			
+				<!---------------------->
+				<!--  Barra di stato  -->
+				<!---------------------->
+				</tr>
+				<tr style="height: 80px;">
+					<td>
+						<div class="cuVarList" id="mac.lastAlarms" style="height:72px;
+									font-size:12px;
+									display:block;
+								    padding-left: 10px;
+									margin-top:0px; margin-left:5px; margin-right:0px; 
+									border-radius: 5px 0px 0px 5px; 
+									background-color:#f7eeee; color:#5a0101; 
+									border:1px solid darkGray; 
+									overflow:auto; ">
+							<table id="mac.lastAlarms.table" class="cuVarListTable" cellspacing="0" >
+								<tbody>
+								</tbody>
+								</table>
+							</div>
+							
+					</td>
+					<td>
+						<div class="softkey-panel" id="generalStatus" style="height:72px;
+									font-size:12px;
+									vertical-align:middle;
+									display:block;
+								    padding-left: 10px;
+									margin-top:0px; margin-left:5px; margin-right:0px; 
+									border-radius: 5px 0px 0px 5px; 
+									border:1px solid darkGray; 
+									">
+							<table style="vertical-align: baseline; ">
+								<tr>
+									<td><img class="actionIcon" id="connectionStatus" src="red.png" style="width:16px; height:16px; "  onClick="javascript:change_conn_status(this);" /></td>
+									<td><div id="msg" class="actionIcon" style="height:20px; width: 125px; overflow:auto;" onClick="javascript:change_conn_status(this);">...</div></td>
+									</tr>
+								<tr>
+									<td><img class="actionIcon" id="userBt" src="user.png" style="width:16px; height:16px; "  onClick="javascript:user_status(this);" /></td>
+									<td><div class="actionIcon" style="font-size:80%" height:20px; class="" id="userStatus" onClick="javascript:user_status(this);">...</div></td>
+									</tr>
+								<tr>
+									<td><img class="actionIcon" id="machineStatus" src="machine.png" style="width:16px; height:16px; "  onClick="javascript:machine_status(this);" /></td>
+									<td><div style="font-size:80%" height:20px; class="cuVar" id="mac.stat_msg" onClick="javascript:machine_status(this);" >...</div></td>
+									</tr>
+								</table>
+							</div>
+					</td>
+				</tr>
+			</table>
+		</div>
+</body>
+</html>

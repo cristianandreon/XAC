@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>xProject Remote Service Gateway</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script lang="javascript">
+
+
+            // For testing purposes
+            var output = null;
+            var websocket = null;
+
+
+            function close_connection() {
+                if (websocket)
+                    websocket.close();
+                websocket = null;
+            }
+
+            function open_connection() {
+                
+                if (!websocket) {
+                    var wsUri = "ws://" + document.location.host + "/xProjectAssistCenter/wsServer";
+
+                    output = document.getElementById("output");
+
+                    writeToScreen("Connecing to " + wsUri);
+
+                    websocket = new WebSocket(wsUri);
+
+                    if (websocket) {
+                        websocket.onerror = function (evt) {
+                            writeToScreen('<span style="color: red;">ERROR:</span> ' + evt.data);
+                        };
+
+                        websocket.onopen = function (evt) {
+                            writeToScreen("Connected to " + wsUri);
+                            websocket.send("Test");
+                        };
+
+                        websocket.onclose = function (evt) {
+                            writeToScreen("Closed");
+                        };
+
+                        websocket.onmessage = function (evt) {
+                            writeToScreen(evt.data);
+                        };
+
+                    } else {
+                        writeToScreen('<span style="color: red;">NO WebSocket!</span>');
+                    }
+                }
+            }
+
+            function writeToScreen(message) {
+                output.innerHTML += message + "<br>";
+            }
+
+
+        </script>
+    </head>
+    <body>
+    <center>
+        <br/><br/>        
+        <div><h1>Welcome into xProject Remote Service Gateway</h1></div>        
+        <br/><br/><br/>
+        <div>Open connection:<input value="Connect" onClick="open_connection();" type="button" /></div>
+        <div>Close connection:<input value="Disconnect" onClick="close_connection();" type="button" /></div>
+
+        <br/><br/><br/>
+        <div id="output" style="border: 1px solid gray; width:800px; height: 500px; overflow-y: scroll; "></div>
+    </center>
+</body>
+</html>
